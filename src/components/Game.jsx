@@ -8,11 +8,12 @@ function Game() {
         history: [{
             squares: Array(9).fill(null)
         }],
+        stepNumber: 0,
         isNext: true,
     });
 
-    const histories = history.history;
-    const current = histories[history.history.length - 1];
+    const histories = history.history.slice(0, history.stepNumber + 1);
+    const current = histories[histories.length - 1];
     const winner = calculateWinner(current.squares);
     let status;
 
@@ -22,35 +23,53 @@ function Game() {
         status = 'Next Player : ' + (history.isNext ? 'X' : 'O');
     }
 
+    function jumpTo(step) {
+        setHistory(prevState => ({
+            ...prevState,
+            stepNumber: step,
+            isNext: (step % 2 ) === 0 
+        }));
+    }
+
+    const moves = histories.map((step, move) => {
+        const desc = move ? 'Go to move #' + move : 'Go to game start';
+        return (
+            <li key={move}>
+                <button onClick={() => {jumpTo(move)}}>{desc}</button>
+            </li>
+        );
+    });
+
     function handleClick(i) {
         const histories = history.history;
-        const current = histories[history.history.length - 1];
+        const current = histories[histories.length - 1];
         const squares = current.squares.slice();
-
-        console.log(squares);
         
         if (calculateWinner(squares) || squares[i]) {
-          return;
+            return;
         }
         
         squares[i] = history.isNext ? 'X' : 'O';
+        console.log(squares);
+        console.log(history);
         
         setHistory({
-          history: histories.concat([{
-            squares: squares,
-          }]),
-          isNext: !history.isNext,
+            history: histories.concat([{
+                squares: squares,
+            }]),
+            stepNumber: histories.length,
+            isNext: !history.isNext,
         });
     }
 
     return (
-        <div className="game">
-            <div className="game-board">
+        <div className="wrapper">
+            <div className="status">{status}</div>
+            <div className="game-grid">
                 <Board squares={current.squares} onClick={(i) => { handleClick(i) }} />
             </div>
             <div className="game-info">
-            <div>{status}</div>
-            <ol>{/* TODO */}</ol>
+            <ol className="button">{moves}</ol>
             </div>
       </div>
     );
