@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  margin: 20px;
+  color: rgb(221, 218, 214);
+  background-color: rgb(24, 26, 27);
+}
+
+ol,
+ul {
+  padding-left: 30px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 40px;
+}
+
+.board-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.current-player {
+  font-weight: bold;
+}
+
+.grid {
+  margin-top: 20px;
+}
+
+.square {
+  background: #ccc;
+  /* background-color: rgb(24, 26, 27); */
+  border: 0.5px dotted #000;
+  float: left;
+  font-size: 50px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 100px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 100px;
+  cursor: pointer;
+}
+
+.square:focus {
+  outline: none;
+}
+
+.kbd-navigation .square:focus {
+  background: #ddd;
+}
+
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-info {
+  margin-left: 20px;
+}
