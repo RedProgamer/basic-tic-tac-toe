@@ -12,8 +12,8 @@ function Game() {
         isNext: true,
     });
 
-    const histories = history.history.slice(0, history.stepNumber + 1);
-    const current = histories[histories.length - 1];
+    const histories = history.history;
+    const current = histories[history.stepNumber];
     const winner = calculateWinner(current.squares);
     let status;
 
@@ -41,7 +41,7 @@ function Game() {
     });
 
     function handleClick(i) {
-        const histories = history.history;
+        const histories = history.history.slice(0, history.stepNumber + 1);
         const current = histories[histories.length - 1];
         const squares = current.squares.slice();
         
